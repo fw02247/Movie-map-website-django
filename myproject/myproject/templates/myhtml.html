@@ -1,0 +1,91 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>G</title>
+    <style type="text/css">
+    {% load static %}
+			@font-face {
+				font-family:'Conquer';
+				src: url("{% static "Conquer.otf"%}");
+			}
+			@font-face {
+				font-family:'Hermes';
+				src: url("{% static "Hermes.otf"%}");
+			}
+			@font-face {
+				font-family:'TakeChange';
+				src: url("{% static "TakeChange.ttf"%}");
+			}
+			.boxall{
+			width:100%;height:60px;
+			}
+			.search-box{
+				width:600px;height:60px;
+				background_color:cadetblue;
+				position:absolute;left:50%;
+				transform:translate(-50%,0%)}
+			.box1{
+				width:520px;height:60px;
+				text-align:certen;
+				font-size:15;}
+			.box2{
+				width:80px;height:60px;
+				text-align: center;
+				border-color:cadetblue;
+				background-color:cadetblue;
+				font-family: Conquer;font-size: 30;
+				position: absolute;right:0;}
+			.titletext{
+				font-family:'TakeChange';
+				color:gray;
+				font-size:60;
+				text-align:center;}
+			.img1{
+				width: 600px;
+				height: 500px;
+				position:absolute;left:50%;top:30%;
+				transform:translate(-50%,0%)}
+			.img2{
+			    width: 300px;
+				height: 300px;
+				position:absolute;left:50%;top:45%;
+				transform:translate(-50%,0%)}
+            .nothing{
+                width: 100%;
+                text-align:center;
+                position:absolute;top:30%;
+                font-size:30;
+            }
+    </style>
+</head>
+<body>
+
+<!-- TITLE -->
+<div>
+    <p class="titletext">THE PAGE BY JI</p>
+</div>
+
+<!-- Search BOX -->
+<div class="boxall">
+    <div class="search-box">
+        <form method="post">
+            {% csrf_token %}
+            <input class="box1" placeholder="   Input anything you want!!!" name="search_contain">
+            <button type="submit" class="box2" name="box2">GO</button>
+        </form>
+    </div>
+</div>
+<div class="search_contain">
+        {% if flag == 1%}
+            <img src="{{pic}}" class="img1">
+        {% endif %}
+
+        {%if flag == 2 %}
+            {%load static%}
+            <img src="{% static 'nothing.gif'%}" class="img2">
+            <p class = "nothing">没有相关资料，请重新搜索！</p>
+        {% endif %}
+	</div>
+</body>
+</html>

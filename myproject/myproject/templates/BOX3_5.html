@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Detail</title>
+        <style>
+		.BOX2{
+			width:100%;height:100px;
+			position:absolute;
+			top:0;
+		}
+        .line{
+			width:700px;
+			height:100px;
+			position:absolute;left:50%;top:200px;
+			transform: translate(-50%,0);
+		}
+		.input{
+			width:350px;height:50px;
+			text-align: center;
+			border: solid gray 1px;
+			border-radius: 20px;
+			font-size:20px;
+			position:absolute;
+		}
+		.submit{
+			width:100px;height:50px;
+			background-color: cadetblue;
+			font-size:20px;
+			border: solid cadetblue 1px;
+			border-radius: 30px;
+			position:absolute;
+		}
+		p{
+			text-align: center;
+			font-size:20px;
+			position:absolute;
+			left:20px;
+		}
+		pre{
+			font-size:20px;
+			color:gray;
+			position:absolute;
+			position:absolute;left:50%;
+			transform: translate(-50%,0);
+		}
+		.box{
+		    width:300px;height:700px;
+		    border: dashed cadetblue 2px;
+			border-radius: 20px;
+			position:absolute;
+		}
+        </style>
+    </head>
+    <body>
+        {% include 'BOX2.html' %}
+        {% if flag != 1 %}
+    <!---------------------------------------------------------------------------------------->
+        <form method="post">
+            {% csrf_token %}
+            <p style="font-family:'lian';font-size:40px;left:50%;top:90px;transform:translate(-50%,0);">电 影 详 细 信 息</p>
+            <div class="line" style="top:230px;width:500px;">
+                <input class="input" name="input" placeholder="请输入一部你想了解的电影" style="left:0;">
+                <input class="submit" type="submit"  value="查询" style="right:0;">
+            </div>
+        </form>
+    <!--------------------------------------------350px--------------------------------------------->
+        {% if is_contain == 1 %}
+        <div class="line" style="width:1050px;height:1000px;top:400px;">
+            <div class="box" style="left:0px;" ><pre>{{information1}}</pre></div>
+            <div class="box" style="left:400px;"><pre>{{information2}}</pre></div>
+            <div class="box" style="left:800px;"><pre>{{information3}}</pre></div>
+        </div>
+        {% endif %}
+    {% endif %}
+    </body>
+</html>

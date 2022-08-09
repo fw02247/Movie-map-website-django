@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>RELATION</title>
+        <style>
+		.BOX2{
+			width:100%;height:100px;
+			position:absolute;
+			top:0;
+		}
+        .line{
+			width:590px;
+			height:50px;
+			position:absolute;left:50%;top:220px;
+			transform: translate(-50%,0);
+		}
+		.one{
+			width:150px;height: 50px;
+			position:absolute;left:0;
+			border: solid gray 1px;
+			border-radius: 20px;
+			font-size:15px;
+		}
+		.two{
+			width:400px;height:50px;
+			position:absolute;right:0;
+			text-align: center;
+			border: solid gray 1px;
+			border-radius: 20px;
+			font-size:15px;
+		}
+		option{
+			text-align: center;
+			font-family: 'bold';
+			font-size:20px;
+		}
+		.submit{
+			width:100px;height:60px;
+			position:absolute;left:50%;
+			background-color: cadetblue;
+			font-size:20px;
+			border: solid cadetblue 1px;
+			border-radius: 30px;
+			transform: translate(-50%,0);
+
+		}
+		.bigbox{
+			width:230px;height:70px;
+			position:absolute;top:0;
+		}
+		.relationone{
+			width:90px;height:40px;
+			position:absolute;top:0;
+			border-bottom: 1px gray solid;
+		}
+		.relationtwo{
+			width:150px;height: 50px;
+			background-color: lightblue;
+			border: solid gray 1px;
+			border-radius: 20px;
+			position:absolute;top:0;
+		}
+		p{
+			text-align: center;
+			font-family: 'bold';
+		}
+        </style>
+    </head>
+    <body>
+		{% include 'BOX2.html' %}
+		{% if flag != 1 %}
+		<p class="titlep">查 询 联 系</p>
+		<form method="post">
+			{% csrf_token %}
+<!---------------------------------------------------------------------------------------->
+			<div class="line">
+				<select name="ask1" class="one">
+					<option value="导演" selected>导演</option>
+					<option value="演员" selected>演员</option>
+					<option value="电影" selected>电影</option>
+					<option value="类型" selected>类型</option>
+				</select>
+				<input class="two" name="input1" placeholder="请输入人名/电影名字/电影类型">
+			</div>
+<!---------------------------------------------------------------------------------------->
+			<div class="line" style="top:300px">
+				<select name="ask2" class="one">
+					<option value="导演" selected>导演</option>
+					<option value="演员" selected>演员</option>
+					<option value="电影" selected>电影</option>
+					<option value="类型" selected>类型</option>
+				</select>
+				<input class="two" name="input2" placeholder="请输入人名/电影名字/电影类型">
+			</div>
+<!---------------------------------------------------------------------------------------->
+			<div class="line" style="top:400px">
+				<input type="submit" class="submit" value="确定">
+			</div>
+		</form>>
+<!---------------------------------------------------------------------------------------->
+		{% if is_contain %}
+			{% if is_contain == 2 %}
+			<div class="line" style="top:570px; height=200px;width:100%;">
+				<div class='relationtwo' style="left:{{length_input1}}px;"><p>{{input1}}</p></div>
+					{% for a,b,c in road %}
+					<div class='bigbox' style="left:{{c}}px;">
+						<div class='relationone' style="left:0;"><p>{{a}}</p></div>
+						<div class='relationtwo' style="left:80px;"><p>{{b}}</p></div>
+					</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+<!---------------------------------------------------------------------------------------->
+			{%if is_contain == 1 %}
+				<div class="line" style="top:500px; height=200px;width:100%;">
+					{% load static %}
+					<img src="{% static 'nothing.gif' %}" style="width:400px;height:400px;position: absolute;left: 50%;top:30px;transform: translate(-50%,0);">
+					<p class = "nothing" style="font-size:20px;position:absolute;left:50%;top:0;transform: translate(-50%,0);">二者无联系，请重新搜索！</p>
+				</div>
+			{% endif %}
+		{% endif %}
+	{% endif %}
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>RECOMMENDATION</title>
+        <style>
+		.BOX2{
+			width:100%;height:100px;
+			position:absolute;
+			top:0;
+		}
+        .line{
+			width:700px;
+			height:100px;
+			position:absolute;left:50%;top:200px;
+			transform: translate(-50%,0);
+		}
+		.input{
+			width:350px;height:50px;
+			text-align: center;
+			border: solid gray 1px;
+			border-radius: 20px;
+			font-size:20px;
+			position:absolute;
+		}
+		.submit{
+			width:100px;height:50px;
+			background-color: cadetblue;
+			font-size:20px;
+			border: solid cadetblue 1px;
+			border-radius: 30px;
+			position:absolute;
+		}
+		p{
+			text-align: center;
+			font-size:20px;
+			position:absolute;
+			left:20px;
+		}
+		pre{
+			font-size:20px;
+			color:gray;
+			position:absolute;
+			left:20px;
+		}
+		.box{
+		    width:300px;height:400px;
+		    border: solid cadetblue 1px;
+			border-radius: 20px;
+			position:absolute;
+		}
+        </style>
+    </head>
+    <body style="positon:absolute;">
+        {% include 'BOX2.html' %}
+        {% if flag != 1 %}
+        <p class="titlep">电 影 智 能 推 荐</p>
+    <!---------------------------------------------------------------------------------------->
+        <form method="post">
+            {% csrf_token %}
+            <div class="line" style="top:230px;width:500px;">
+                <input class="input" name="input" placeholder="请输入一部你喜欢的电影" style="left:0;">
+                <input class="submit" type="submit"  value="查询" style="right:0;">
+            </div>
+        </form>
+    <!--------------------------------------------350px--------------------------------------------->
+        <div class="line" style="top:400px;width:1700px;">
+            {% for movie,reasons,lef in ans1 %}
+            <div class="box" style="left:{{lef}}px;border:2px solid gray;box-shadow: 1px 1px 1px 1px gray;">
+                <p style="font-size:28px;">{{movie}}</p>
+                <pre>{{reasons}}</pre>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="line" style="width:1700px;top:850px;">
+            {% for movie,reasons,lef in ans2 %}
+            <div class="box" style="left:{{lef}}px;border:2px solid gray;box-shadow: 1px 1px 1px 1px gray;">
+                <p style="font-size:28px;">{{movie}}</p>
+                <pre>{{reasons}}</pre>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    </body>
+</html>

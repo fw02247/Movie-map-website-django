@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ASK</title>
+        <style>
+		.BOX2{
+			width:100%;height:100px;
+			position:absolute;
+			top:0;
+		}
+        .line{
+			width:700px;
+			height:100px;
+			position:absolute;left:50%;top:200px;
+			transform: translate(-50%,0);
+		}
+		.one{
+			width:150px;height: 50px;
+			border: solid gray 1px;
+			border-radius: 20px;
+			position:absolute;left:0;
+		}
+		.two{
+			width:300px;height:50px;
+			text-align: center;
+			border: solid gray 1px;
+			border-radius: 20px;
+			font-size:20px;
+			position:absolute;
+		}
+		option{
+			text-align: center;
+			font-family: 'bold';
+			font-size:20px;
+		}
+		.submit{
+			width:100px;height:60px;
+			position:absolute;left:50%;
+			background-color: cadetblue;
+			font-size:20px;
+			border: solid cadetblue 1px;
+			border-radius: 30px;
+			transform: translate(-50%,0);
+		}
+		.answer{
+			width:200px;
+			height:50px;
+			background-color: lightblue;
+			border-radius: 30px;
+			position:absolute;top:80px;
+		}
+		p{
+			text-align: center;
+			font-size:20px;
+			position:absolute;
+		}
+        </style>
+    </head>
+    <body>
+		{% include 'BOX2.html' %}
+		{% if flag != 1 %}
+		<p class="titlep">智 能 问 答</p>
+<!---------------------------------------------------------------------------------------->
+		<form method="post">
+			{% csrf_token %}
+			<div class="line" style="top:220px;">
+				<p style="left:-145px;top:-15px;">你想查询的是：</p>
+
+				<select name="ask1" class="one">
+					<option value="导演" selected>导演</option>
+					<option value="演员" selected>演员</option>
+					<option value="电影" selected>电影</option>
+					<option value="类型" selected>类型</option>
+				</select>
+
+				<input class="two" name="input1" style="left:180px;font-size:15px;" placeholder="请输入人名/电影名字/电影类型">
+
+				<p style="left:500px;top:-10px;">的</p>
+
+				<select name="ask2" class="one" style="left:550px;">
+					<option value="导演" selected>导演</option>
+					<option value="演员" selected>演员</option>
+					<option value="电影" selected>电影</option>
+					<option value="类型" selected>类型</option>
+				</select>
+			</div>
+			<input type="submit" class="submit" value="查询" style="top:300px">
+        </form>
+<!---------------------------------------------------------------------------------------
+    is_contain:
+        0 —— 没有问题
+        1 —— 问题没填
+        2 —— 问题没答案
+        3 —— 有答案
+ --------------------------------------------------------------------------------------->
+			{% if is_contain %}
+			{% load static %}
+				<div class="line" style="top:400px;">
+					{% if is_contain == 1 %}
+						<img src="{% static 'nothing.gif' %}" style="width:400px;height:400px;position: absolute;left: 50%;top:30px;transform: translate(-50%,0);">
+						<p class = "nothing" style="font-size:20px;position:absolute;left:50%;top:0;transform: translate(-50%,0);">信息填写不完整，请重新填写</p>
+					{% endif %}
+
+					{% if is_contain == 2 %}
+						<img src="{% static 'nothing.gif' %}" style="width:400px;height:400px;position: absolute;left: 50%;top:30px;transform: translate(-50%,0);">
+						<p class = "nothing" style="font-size:20px;position:absolute;left:50%;top:0;transform: translate(-50%,0);">无结果，请调整问题后重试</p>
+					{% endif %}
+				</div>
+				{% if is_contain == 3 %}
+					{% for ans,x,y in length %}
+						<div class="answer" style="top:{{y}}px;left:{{x}}px;border:gray 1px gainboro;box-shadow: 2px 2px 2px 2px gray;">
+							<p style="top:-10px;left:23px;">{{ans}}</p>
+						</div>
+					{% endfor %}
+				{% endif %}
+			{% endif %}
+	{% endif %}
+    </body>
+</html>
